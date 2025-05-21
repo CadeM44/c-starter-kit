@@ -1,0 +1,8 @@
+# enforce LF line endings for Linux/WSL2 compatibility
+# and keep UTF-8 everywhere
+
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
