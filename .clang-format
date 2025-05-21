@@ -7,6 +7,7 @@ TabWidth:               4
 ContinuationIndentWidth: 4
 UseTab:                 Always
 BreakBeforeBraces:            Linux
+LineEnding:				LF
 AlwaysBreakBeforeMultilineStrings: true
 AllowShortIfStatementsOnASingleLine:  false
 AllowShortLoopsOnASingleLine:         false
