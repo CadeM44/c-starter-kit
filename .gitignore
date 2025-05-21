@@ -1,0 +1,45 @@
+# Build directories
+build/
+**/build/
+cmake-build-*/
+**/cmake-build-*/
+out/
+**/out/
+
+# Compiled executables
+*.exe
+*.out
+*.app
+# Add your project executable names if they are generic like 'a.out'
+# or if you have a consistent naming scheme you want to ignore by default
+
+# Object files
+*.o
+*.obj
+*.ko
+*.ilk
+*.pdb
+*.idb
+
+# Libraries
+*.lib
+*.a
+*.so
+*.dylib
+
+# IDE-specific files
+.vscode/
+!.vscode/launch.json  # You might want to keep launch configurations
+!.vscode/tasks.json   # You might want to keep task configurations
+.idea/
+*.suo
+*.user
+*.sln.docstates
+
+# Visual Studio
+.vs/
+Generated\ Files/ # Rider
+
+# Operating System files
+.DS_Store
+Thumbs.db
