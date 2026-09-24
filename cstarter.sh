@@ -8,7 +8,7 @@ usage() {
 	cat >&2 <<'EOF'
 Usage:
   cstarter.sh --name <project> --template <id> [--output <dir>]
-  cstarter.sh --name <project> --standard c99|c23 --layout cmake|birch [--output <dir>]
+  cstarter.sh --name <project> --standard c99|c23 [--output <dir>]
   cstarter.sh <project>                 interactive template picker
   cstarter.sh --list
   cstarter.sh --gui
@@ -17,8 +17,6 @@ Usage:
 Templates:
   c99-starter  C99 + CMake
   c2x-starter  C23 + CMake
-  c99-birch    C99 + flat Makefile
-  c2x-birch    C23 + flat Makefile
 
 Project names need to be C identifiers: [A-Za-z_][A-Za-z0-9_]*
 EOF
@@ -39,12 +37,9 @@ is_ident() {
 resolve_template() {
 	local template="${1:-}"
 	local standard="${2:-}"
-	local layout="${3:-}"
 
 	if [[ -n "${template}" ]]; then
-		if [[ "${template}" == "c2x-birch-starter" || "${template}" == "c23-birch" ]]; then
-			template="c2x-birch"
-		elif [[ "${template}" == "c23-cmake" || "${template}" == "c23-starter" ]]; then
+		if [[ "${template}" == "c23-cmake" || "${template}" == "c23-starter" ]]; then
 			template="c2x-starter"
 		elif [[ "${template}" == "c99-cmake" ]]; then
 			template="c99-starter"
@@ -53,28 +48,15 @@ resolve_template() {
 		return 0
 	fi
 
-	if [[ -n "${standard}" || -n "${layout}" ]]; then
-		if [[ -z "${standard}" || -z "${layout}" ]]; then
-			echo "Need both --standard and --layout if you aren't passing --template" >&2
-			return 1
-		fi
+	if [[ -n "${standard}" ]]; then
 		case "${standard}" in
-			c99|C99) standard="c99" ;;
-			c23|C23|c2x|C2X) standard="c2x" ;;
+			c99|C99) printf '%s\n' "c99-starter" ;;
+			c23|C23|c2x|C2X) printf '%s\n' "c2x-starter" ;;
 			*)
 				echo "Unknown standard: ${standard} (c99 or c23)" >&2
 				return 1
 				;;
 		esac
-		case "${layout}" in
-			cmake|CMake) layout="starter" ;;
-			birch|flat|makefile|Makefile) layout="birch" ;;
-			*)
-				echo "Unknown layout: ${layout} (cmake or birch)" >&2
-				return 1
-				;;
-		esac
-		printf '%s-%s\n' "${standard}" "${layout}"
 		return 0
 	fi
 
@@ -210,7 +192,6 @@ launch_gui() {
 NAME=""
 TEMPLATE=""
 STANDARD=""
-LAYOUT=""
 OUTPUT="."
 DO_LIST=0
 DO_GUI=0
@@ -239,10 +220,6 @@ while [[ $# -gt 0 ]]; do
 			;;
 		-s|--standard)
 			STANDARD="${2:-}"
-			shift 2
-			;;
-		--layout)
-			LAYOUT="${2:-}"
 			shift 2
 			;;
 		-o|--output)
@@ -286,7 +263,7 @@ if [[ -z "${NAME}" ]]; then
 	exit 1
 fi
 
-TEMPLATE="$(resolve_template "${TEMPLATE}" "${STANDARD}" "${LAYOUT}")" || exit 1
+TEMPLATE="$(resolve_template "${TEMPLATE}" "${STANDARD}")" || exit 1
 
 if [[ -z "${TEMPLATE}" ]]; then
 	TEMPLATE="$(pick_template_interactive)" || exit 1
