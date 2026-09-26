@@ -1,5 +1,4 @@
-# Matches CONVENTIONS.md: 4-space indent, LF, UTF-8.
-# clang-format is the C authority; this covers editors that ignore it.
+# 4-space indent, LF, UTF-8. clang-format is the C authority.
 
 root = true
 

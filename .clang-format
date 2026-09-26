@@ -1,4 +1,3 @@
-# Matches CONVENTIONS.md / My C Conventions.md
 # 4-space Allman, * on the declarator, no hard column wrap
 
 BasedOnStyle: LLVM
