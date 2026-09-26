@@ -21,6 +21,18 @@ Project names have to be C identifiers: `[A-Za-z_][A-Za-z0-9_]*`.
 
 Generated projects also get `.editorconfig` and `.clang-format`.
 
+## Clay GUI
+
+```sh
+cmake -S gui -B gui/build
+cmake --build gui/build
+./cstarter.sh --gui
+```
+
+Needs raylib 5.x, or let CMake fetch 5.5. `--gui` will try to build it the first time.
+
+Enter generates, Tab switches fields, 1-2 pick a template. The window is split (sidebar / form / preview) so extra options can land later without a rewrite.
+
 ## After generation
 
 ```sh
