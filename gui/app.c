@@ -5,7 +5,20 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+#ifdef _WIN32
+#include <direct.h>
+#include <io.h>
+#ifndef R_OK
+#define R_OK 4
+#endif
+#define access _access
+#define getcwd _getcwd
+#define popen _popen
+#define pclose _pclose
+#else
 #include <unistd.h>
+#endif
 
 #include "raylib.h"
 
