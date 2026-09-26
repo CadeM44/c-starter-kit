@@ -1,28 +1,23 @@
 # c-starter-kit
 
-Spits out a barebones C project. C99 and C23 (C2x).
+Spits out a barebones C project. C99 and C23.
 
 ```sh
 ./cstarter.sh myproj
 
-./cstarter.sh --name myproj --template c2x-starter --output ~/src
-./cstarter.sh --name myproj --standard c23 --layout birch
+./cstarter.sh --name myproj --standard c23 --output ~/src
 ./cstarter.sh --list
 ./cstarter.sh --gui
 ```
 
 Project names have to be C identifiers: `[A-Za-z_][A-Za-z0-9_]*`.
 
-## Templates
+## Standards
 
-| ID | Standard | Layout |
-| --- | --- | --- |
-| `c99-starter` | C99 | CMake (`src/` + `include/`) |
-| `c2x-starter` | C23 | CMake (`src/` + `include/`) |
-| `c99-birch` | C99 | Flat Makefile |
-| `c2x-birch` | C23 | Flat Makefile |
-
-`c2x-birch-starter` still works as an alias for `c2x-birch`.
+| `--standard` | CMake tree |
+| --- | --- |
+| `c99` | `src/` + `include/`, C99 |
+| `c23` | same layout, C23 |
 
 Generated projects also get `.editorconfig` and `.clang-format`.
 
@@ -40,20 +35,8 @@ Enter generates, Tab switches fields, 1-2 pick a template. The window is split (
 
 ## After generation
 
-CMake templates:
-
 ```sh
 cd myproj
 cmake -S . -B build
 cmake --build build
 ```
-
-Birch templates:
-
-```sh
-cd myproj
-make
-./myproj
-```
-
-C23 note: GCC 13 still wants `-std=c2x`. The birch Makefile sniffs that.
