@@ -160,9 +160,6 @@ generate() {
 	if [[ -f "${SCRIPT_DIR}/.clang-format" ]]; then
 		cp "${SCRIPT_DIR}/.clang-format" "${project_dir}/"
 	fi
-	if [[ -f "${SCRIPT_DIR}/CONVENTIONS.md" ]]; then
-		cp "${SCRIPT_DIR}/CONVENTIONS.md" "${project_dir}/"
-	fi
 
 	echo "Created ${project_dir}"
 }
