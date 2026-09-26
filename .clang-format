@@ -1,26 +1,47 @@
-# LLVM + Linux‐kernel hybrid style
+# Matches CONVENTIONS.md / My C Conventions.md
+# 4-space Allman, * on the declarator, no hard column wrap
 
 BasedOnStyle: LLVM
-PointerAlignment: Left
-IndentWidth:            4
-TabWidth:               4
+Language: C
+UseTab: Never
+IndentWidth: 4
+TabWidth: 4
 ContinuationIndentWidth: 4
-UseTab:                 Always
-BreakBeforeBraces:            Linux
-LineEnding:				LF
-AlwaysBreakBeforeMultilineStrings: true
-AllowShortIfStatementsOnASingleLine:  false
-AllowShortLoopsOnASingleLine:         false
-AllowShortFunctionsOnASingleLine:     false
-IndentCaseLabels:                    false
-AlignEscapedNewlinesLeft:            false
-AlignTrailingComments:               true
+ColumnLimit: 0
+
+BreakBeforeBraces: Allman
+PointerAlignment: Left
+DerivePointerAlignment: false
+SpaceAfterCStyleCast: false
+SpaceBeforeParens: ControlStatements
+SpaceBeforeCpp11BracedList: true
+
+AllowShortIfStatementsOnASingleLine: false
+AllowShortLoopsOnASingleLine: false
+AllowShortBlocksOnASingleLine: Never
+AllowShortFunctionsOnASingleLine: None
+AllowShortCaseLabelsOnASingleLine: false
+AllowShortEnumsOnASingleLine: false
+
+IndentCaseLabels: false
+IndentGotoLabels: false
+KeepEmptyLinesAtTheStartOfBlocks: false
+MaxEmptyLinesToKeep: 2
+
+AlignAfterOpenBracket: Align
+AlignTrailingComments: true
+AlignEscapedNewlines: Left
 AllowAllParametersOfDeclarationOnNextLine: false
-AlignAfterOpenBracket:               true
-SpaceAfterCStyleCast:                false
-MaxEmptyLinesToKeep:                 2
-BreakBeforeBinaryOperators:          NonAssignment
-BreakStringLiterals:                 false
-SortIncludes:                        false
-# AlignConsecutiveMacros:    Consecutive
-AlignEscapedNewlines:      Left
+AlwaysBreakAfterReturnType: None
+AlwaysBreakBeforeMultilineStrings: false
+AlwaysBreakTemplateDeclarations: No
+BinPackArguments: true
+BinPackParameters: true
+BreakBeforeBinaryOperators: NonAssignment
+BreakStringLiterals: false
+ReflowComments: false
+
+SortIncludes: false
+IncludeBlocks: Preserve
+
+LineEnding: LF

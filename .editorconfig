@@ -1,12 +1,27 @@
-# VS2022 doesn't seem to give a shit about this .editorconfig (at least for C/C++ projects)
-# so we'll enforce line endings in .gitattributes and .clang-format
-
-
-# enforce LF line endings for Linux/WSL2 compatibility
-# and keep UTF-8 everywhere
+# Matches CONVENTIONS.md: 4-space indent, LF, UTF-8.
+# clang-format is the C authority; this covers editors that ignore it.
 
 root = true
 
 [*]
 charset = utf-8
 end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+[*.{c,h}]
+indent_style = space
+indent_size = 4
+tab_width = 4
+
+[*.{md,sh,py,txt,yml,yaml}]
+indent_style = space
+indent_size = 4
+
+[CMakeLists.txt]
+indent_style = space
+indent_size = 4
+
+[Makefile]
+indent_style = tab
+indent_size = 4
