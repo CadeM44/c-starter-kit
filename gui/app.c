@@ -20,23 +20,19 @@ static const App_Template g_templates[] = {
         "%s/\n"
         "  CMakeLists.txt\n"
         "  src/%s.c\n"
-        "  src/main.c\n"
-        "  include/%s/%s.h\n"
-        "  tests/test_%s.c\n"
+        "  include/%s.h\n"
         "  .editorconfig\n"
         "  .clang-format",
     },
     {
-        "c2x-starter",
+        "c23-starter",
         "c23",
         "C23  ·  CMake",
         "same layout, c_std_23 / MSVC C23",
         "%s/\n"
         "  CMakeLists.txt\n"
         "  src/%s.c\n"
-        "  src/main.c\n"
-        "  include/%s/%s.h\n"
-        "  tests/test_%s.c\n"
+        "  include/%s.h\n"
         "  .editorconfig\n"
         "  .clang-format",
     },
@@ -215,7 +211,7 @@ void app_refresh_preview(void)
 {
     const App_Template *t = app_selected_template();
     const char *name = g_app.name[0] ? g_app.name : "myproj";
-    snprintf(g_app.preview, sizeof g_app.preview, t->preview, name, name, name, name, name);
+    snprintf(g_app.preview, sizeof g_app.preview, t->preview, name, name, name);
 }
 
 void app_init(const char *argv0)
@@ -388,8 +384,8 @@ void app_generate(void)
     const char *out = g_app.output[0] ? g_app.output : ".";
     char cmd[APP_ROOT_MAX + APP_NAME_MAX + APP_PATH_MAX + 128];
     snprintf(cmd, sizeof cmd,
-             "bash \"%s\" --name \"%s\" --template \"%s\" --output \"%s\" 2>&1",
-             script, g_app.name, app_selected_template()->id, out);
+             "bash \"%s\" --name \"%s\" --standard \"%s\" --output \"%s\" 2>&1",
+             script, g_app.name, app_selected_template()->standard, out);
 
     FILE *pipe = popen(cmd, "r");
     if (!pipe)
