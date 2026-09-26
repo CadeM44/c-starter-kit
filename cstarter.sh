@@ -7,74 +7,48 @@ TEMPLATES_DIR="${SCRIPT_DIR}/templates"
 usage() {
 	cat >&2 <<'EOF'
 Usage:
-  cstarter.sh --name <project> --template <id> [--output <dir>]
   cstarter.sh --name <project> --standard c99|c23 [--output <dir>]
-  cstarter.sh <project>                 interactive template picker
+  cstarter.sh <project>                 interactive standard picker
   cstarter.sh --list
   cstarter.sh --gui
   cstarter.sh --help
 
-Templates:
-  c99-starter  C99 + CMake
-  c2x-starter  C23 + CMake
+Standards:
+  c99  C99 + CMake
+  c23  C23 + CMake
 
 Project names need to be C identifiers: [A-Za-z_][A-Za-z0-9_]*
 EOF
 }
 
-list_templates() {
-	if [[ ! -d "${TEMPLATES_DIR}" ]]; then
-		echo "Unable to find template dir: ${TEMPLATES_DIR}" >&2
-		return 2
-	fi
-	find "${TEMPLATES_DIR}" -mindepth 1 -maxdepth 1 -type d -printf '%f\n' | sort
+list_standards() {
+	printf '%s\n' c99 c23
 }
 
 is_ident() {
 	[[ "$1" =~ ^[A-Za-z_][A-Za-z0-9_]*$ ]]
 }
 
-resolve_template() {
-	local template="${1:-}"
-	local standard="${2:-}"
-
-	if [[ -n "${template}" ]]; then
-		if [[ "${template}" == "c23-cmake" || "${template}" == "c23-starter" ]]; then
-			template="c2x-starter"
-		elif [[ "${template}" == "c99-cmake" ]]; then
-			template="c99-starter"
-		fi
-		printf '%s\n' "${template}"
-		return 0
-	fi
-
-	if [[ -n "${standard}" ]]; then
-		case "${standard}" in
-			c99|C99) printf '%s\n' "c99-starter" ;;
-			c23|C23|c2x|C2X) printf '%s\n' "c2x-starter" ;;
-			*)
-				echo "Unknown standard: ${standard} (c99 or c23)" >&2
-				return 1
-				;;
-		esac
-		return 0
-	fi
-
-	echo ""
+template_for_standard() {
+	case "${1:-}" in
+		c99|C99) printf '%s\n' "c99-starter" ;;
+		c23|C23|c2x|C2X) printf '%s\n' "c2x-starter" ;;
+		*)
+			echo "Unknown standard: ${1:-} (c99 or c23)" >&2
+			return 1
+			;;
+	esac
 }
 
-pick_template_interactive() {
-	local cur="$PWD"
-	cd "${TEMPLATES_DIR}"
-	echo "Please select a template"
-	select x in *; do
+pick_standard_interactive() {
+	echo "Please select a language standard"
+	local x
+	select x in c99 c23; do
 		if [[ -n "${x}" ]]; then
 			printf '%s\n' "${x}"
-			cd "${cur}"
 			return 0
 		fi
 	done
-	cd "${cur}"
 	return 1
 }
 
@@ -119,8 +93,8 @@ generate() {
 	fi
 	if [[ ! -d "${TEMPLATES_DIR}/${template}" ]]; then
 		echo "Unknown template: ${template}" >&2
-		echo "Available:" >&2
-		list_templates >&2
+		echo "Available standards:" >&2
+		list_standards >&2
 		return 1
 	fi
 
@@ -190,7 +164,6 @@ launch_gui() {
 }
 
 NAME=""
-TEMPLATE=""
 STANDARD=""
 OUTPUT="."
 DO_LIST=0
@@ -212,10 +185,6 @@ while [[ $# -gt 0 ]]; do
 			;;
 		-n|--name)
 			NAME="${2:-}"
-			shift 2
-			;;
-		-t|--template)
-			TEMPLATE="${2:-}"
 			shift 2
 			;;
 		-s|--standard)
@@ -249,7 +218,7 @@ while [[ $# -gt 0 ]]; do
 done
 
 if [[ "${DO_LIST}" -eq 1 ]]; then
-	list_templates
+	list_standards
 	exit 0
 fi
 
@@ -263,10 +232,9 @@ if [[ -z "${NAME}" ]]; then
 	exit 1
 fi
 
-TEMPLATE="$(resolve_template "${TEMPLATE}" "${STANDARD}")" || exit 1
-
-if [[ -z "${TEMPLATE}" ]]; then
-	TEMPLATE="$(pick_template_interactive)" || exit 1
+if [[ -z "${STANDARD}" ]]; then
+	STANDARD="$(pick_standard_interactive)" || exit 1
 fi
 
+TEMPLATE="$(template_for_standard "${STANDARD}")" || exit 1
 generate "${NAME}" "${TEMPLATE}" "${OUTPUT}"
