@@ -41,7 +41,7 @@ template_for_standard() {
 }
 
 pick_standard_interactive() {
-	echo "Please select a language standard"
+	echo "Please select a language standard" >&2
 	local x
 	select x in c99 c23; do
 		if [[ -n "${x}" ]]; then
