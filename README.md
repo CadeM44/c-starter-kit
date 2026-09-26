@@ -1,6 +1,6 @@
 # c-starter-kit
 
-Spits out a barebones C project. C99 and C23 (C2x).
+Spits out a barebones C project. C99 and C23.
 
 ```sh
 ./cstarter.sh myproj

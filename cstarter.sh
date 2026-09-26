@@ -32,7 +32,7 @@ is_ident() {
 template_for_standard() {
 	case "${1:-}" in
 		c99|C99) printf '%s\n' "c99-starter" ;;
-		c23|C23|c2x|C2X) printf '%s\n' "c2x-starter" ;;
+		c23|C23) printf '%s\n' "c23-starter" ;;
 		*)
 			echo "Unknown standard: ${1:-} (c99 or c23)" >&2
 			return 1
