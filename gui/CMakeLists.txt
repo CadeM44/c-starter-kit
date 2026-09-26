@@ -59,6 +59,10 @@ target_include_directories(cstarter-gui PRIVATE
 )
 target_link_libraries(cstarter-gui PRIVATE raylib)
 
+if(MSVC)
+    target_compile_definitions(cstarter-gui PRIVATE _CRT_SECURE_NO_WARNINGS)
+endif()
+
 if(UNIX AND NOT APPLE)
     target_link_libraries(cstarter-gui PRIVATE m dl pthread)
 endif()

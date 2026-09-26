@@ -3,39 +3,38 @@
 
 #include "clay.h"
 
-/* Muted 1977 Apple rainbow on the cream field from the reference mark. */
+/* Muted 1977 Apple rainbow on the cream field from the reference mark.
+   Brace-initialized so MSVC treats them as constant initializers. */
 
-#define UI_COL(r, g, b) ((Clay_Color) { (float)(r), (float)(g), (float)(b), 255.0f })
-#define UI_COL_A(r, g, b, a) ((Clay_Color) { (float)(r), (float)(g), (float)(b), (float)(a) })
+static const Clay_Color UI_Color_None = { 0.0f, 0.0f, 0.0f, 0.0f };
+static const Clay_Color UI_Color_Bg = { 233.0f, 223.0f, 205.0f, 255.0f };
+static const Clay_Color UI_Color_Panel = { 244.0f, 237.0f, 224.0f, 255.0f };
+static const Clay_Color UI_Color_Card = { 250.0f, 245.0f, 236.0f, 255.0f };
+static const Clay_Color UI_Color_CardHot = { 238.0f, 228.0f, 210.0f, 255.0f };
+static const Clay_Color UI_Color_CardOn = { 236.0f, 230.0f, 214.0f, 255.0f };
+static const Clay_Color UI_Color_Field = { 252.0f, 249.0f, 243.0f, 255.0f };
+static const Clay_Color UI_Color_Line = { 206.0f, 196.0f, 178.0f, 255.0f };
+static const Clay_Color UI_Color_Text = { 52.0f, 46.0f, 38.0f, 255.0f };
+static const Clay_Color UI_Color_Muted = { 122.0f, 112.0f, 98.0f, 255.0f };
+static const Clay_Color UI_Color_BtnText = { 250.0f, 245.0f, 236.0f, 255.0f };
+static const Clay_Color UI_Color_Ok = { 96.0f, 140.0f, 84.0f, 255.0f };
+static const Clay_Color UI_Color_Err = { 176.0f, 86.0f, 82.0f, 255.0f };
 
-static const Clay_Color UI_Color_Bg = UI_COL(233, 223, 205);
-static const Clay_Color UI_Color_Panel = UI_COL(244, 237, 224);
-static const Clay_Color UI_Color_Card = UI_COL(250, 245, 236);
-static const Clay_Color UI_Color_CardHot = UI_COL(238, 228, 210);
-static const Clay_Color UI_Color_CardOn = UI_COL(236, 230, 214);
-static const Clay_Color UI_Color_Field = UI_COL(252, 249, 243);
-static const Clay_Color UI_Color_Line = UI_COL(206, 196, 178);
-static const Clay_Color UI_Color_Text = UI_COL(52, 46, 38);
-static const Clay_Color UI_Color_Muted = UI_COL(122, 112, 98);
-static const Clay_Color UI_Color_BtnText = UI_COL(250, 245, 236);
-static const Clay_Color UI_Color_Ok = UI_COL(96, 140, 84);
-static const Clay_Color UI_Color_Err = UI_COL(176, 86, 82);
-
-static const Clay_Color UI_Color_Green = UI_COL(118, 158, 100);
-static const Clay_Color UI_Color_Yellow = UI_COL(196, 160, 72);
-static const Clay_Color UI_Color_Orange = UI_COL(196, 132, 86);
-static const Clay_Color UI_Color_Red = UI_COL(176, 96, 92);
-static const Clay_Color UI_Color_Purple = UI_COL(148, 112, 150);
-static const Clay_Color UI_Color_Blue = UI_COL(72, 132, 176);
-static const Clay_Color UI_Color_BlueHot = UI_COL(58, 114, 156);
+static const Clay_Color UI_Color_Green = { 118.0f, 158.0f, 100.0f, 255.0f };
+static const Clay_Color UI_Color_Yellow = { 196.0f, 160.0f, 72.0f, 255.0f };
+static const Clay_Color UI_Color_Orange = { 196.0f, 132.0f, 86.0f, 255.0f };
+static const Clay_Color UI_Color_Red = { 176.0f, 96.0f, 92.0f, 255.0f };
+static const Clay_Color UI_Color_Purple = { 148.0f, 112.0f, 150.0f, 255.0f };
+static const Clay_Color UI_Color_Blue = { 72.0f, 132.0f, 176.0f, 255.0f };
+static const Clay_Color UI_Color_BlueHot = { 58.0f, 114.0f, 156.0f, 255.0f };
 
 static const Clay_Color UI_Color_Stripe[] = {
-    UI_COL(118, 158, 100),
-    UI_COL(196, 160, 72),
-    UI_COL(196, 132, 86),
-    UI_COL(176, 96, 92),
-    UI_COL(148, 112, 150),
-    UI_COL(72, 132, 176),
+    { 118.0f, 158.0f, 100.0f, 255.0f },
+    { 196.0f, 160.0f, 72.0f, 255.0f },
+    { 196.0f, 132.0f, 86.0f, 255.0f },
+    { 176.0f, 96.0f, 92.0f, 255.0f },
+    { 148.0f, 112.0f, 150.0f, 255.0f },
+    { 72.0f, 132.0f, 176.0f, 255.0f },
 };
 
 #define UI_STRIPE_COUNT 6

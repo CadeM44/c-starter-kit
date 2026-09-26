@@ -5,7 +5,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+#ifdef _WIN32
+#include <io.h>
+#ifndef R_OK
+#define R_OK 4
+#endif
+#define access _access
+#else
 #include <unistd.h>
+#endif
 
 #include "app.h"
 #include "layout.h"
