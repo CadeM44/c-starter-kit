@@ -7,8 +7,8 @@
 #include <stdlib.h> // malloc, free, exit, atoi, etc.
 #include <string.h> // memcpy, strcmp, strlen, etc.
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
-	printf("Hello World!\n");
-	return 0;
+    printf("Hello World!\n");
+    return 0;
 }

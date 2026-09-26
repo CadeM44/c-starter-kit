@@ -10,8 +10,8 @@
 #include <string.h>    // memcpy, strcmp, strlen, etc.
 #include <threads.h>   // thrd_t, mtx_t, call_once (C11+)
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
-	printf("Hello World!\n");
-	return 0;
+    printf("Hello World!\n");
+    return 0;
 }
