@@ -39,6 +39,9 @@ static const Clay_Color UI_Color_Stripe[] = {
 
 #define UI_STRIPE_COUNT 6
 
+/* Runtime only. Do not use in static initializers (MSVC C2099). */
+#define UI_COL_A(r, g, b, a) ((Clay_Color) { (float)(r), (float)(g), (float)(b), (float)(a) })
+
 #define UI_SPACE_XS 6
 #define UI_SPACE_SM 10
 #define UI_SPACE_MD 16
